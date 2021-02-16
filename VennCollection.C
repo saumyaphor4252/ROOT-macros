@@ -4,9 +4,9 @@ void VennCollection()
   // TString Allfiles[3] = {"Cosmic_rate_tuple1.root","Cosmic_rate_tuple2.root","Cosmic_rate_tuple3.root"};
 
  
-  TFile *file1 = new TFile("Cosmic_rate_tuple_2018_A.root");
-  TFile *file2 = new TFile("Cosmic_rate_tuple_2018_B.root");
-  TFile *file3 = new TFile("Cosmic_rate_tuple_2018_C.root");
+  TFile *file1 = new TFile("CTF_2018.root");
+  TFile *file2 = new TFile("CosmicTF_2018.root");
+  TFile *file3 = new TFile("Regional_2018.root");
   
   TTree *tree1;
   TTree *tree2;
