@@ -77,13 +77,13 @@ void CheckResiduals2()
 
   
 
-  fprintf(CheckResiduals,"Event,HitsPIXEL,HitsBPIX,ResBPIX,HitsFPIX,ResFPIX,HitsTIB,ResTIB,HitsTOB,ResTOB,HitsTID,ResTID,HitsTEC,ResTEC,ValidHits,TotalHits,TotalRes \n");
+  fprintf(CheckResiduals,"Event,HitsPIXEL,HitsBPIX,ResBPIX,HitsFPIX,ResFPIX,HitsTIB,ResTIB,HitsTOB,ResTOB,HitsTID,ResTID,HitsTEC,ResTEC,ValidHits,TotalHits,TotalRes,Residual \n");
   Long64_t n1 = tree1->GetEntriesFast();
-  for (int jentry=0; jentry<100; jentry++) //Event Loop
+  for (int jentry=0; jentry<n1; jentry++) //Event Loop
     {
-      int HitsPIXEL=0,HitsBPIX=0,ResBPIX=0,HitsFPIX=0,ResFPIX=0,HitsTIB=0,ResTIB=0,HitsTOB=0,ResTOB=0,HitsTID=0,ResTID=0,HitsTEC=0,ResTEC=0,ValidHits=0,TotalHits=0,TotalRes=0;
+      int HitsPIXEL=0,HitsBPIX=0,ResBPIX=0,HitsFPIX=0,ResFPIX=0,HitsTIB=0,ResTIB=0,HitsTOB=0,ResTOB=0,HitsTID=0,ResTID=0,HitsTEC=0,ResTEC=0,ValidHits=0,TotalHits=0,TotalRes=0,residual=0;
       
-      std::cout<<"Analysing event: "<<jentry<<std::endl;      
+      //std::cout<<"Analysing event: "<<jentry<<std::endl;      
       tree1->GetEntry(jentry); //Get first Event of tree 1
       
       //CHECKING IN CSV
@@ -119,6 +119,7 @@ void CheckResiduals2()
 	    {
 	      h_ResBPIXxPrime_CTF.Fill(ResBPIXxPrime_CTF->at(res));
 	      h_ResBPIXyPrime_CTF.Fill(ResBPIXyPrime_CTF->at(res));
+	      residual++;
 	    }	  
 	  ResBPIX=ResBPIXxPrime_CTF->size();
 	}
@@ -133,6 +134,7 @@ void CheckResiduals2()
 	    {
 	      h_ResFPIXxPrime_CTF.Fill(ResFPIXxPrime_CTF->at(res));
 	      h_ResFPIXyPrime_CTF.Fill(ResFPIXyPrime_CTF->at(res));
+	      residual++;
 	    }  
 	  ResFPIX=ResFPIXxPrime_CTF->size();
 	}
@@ -151,6 +153,7 @@ void CheckResiduals2()
 	      // std::cout<<"Res TIB at "<<res<<" : "<<ResTIBxPrime_CTF->at(res)<<std::endl;
 	      h_ResTIBxPrime_CTF.Fill(ResTIBxPrime_CTF->at(res));
 	      h_ResTIByPrime_CTF.Fill(ResTIByPrime_CTF->at(res));
+	      residual++;
 	    }
 	  ResTIB=ResTIBxPrime_CTF->size();
 	}
@@ -165,6 +168,7 @@ void CheckResiduals2()
 	    {
 	      h_ResTIDxPrime_CTF.Fill(ResTIDxPrime_CTF->at(res));
 	      h_ResTIDyPrime_CTF.Fill(ResTIDyPrime_CTF->at(res));
+	      residual++;
 	    }
 	  ResTID=ResTIDxPrime_CTF->size();
 	}
@@ -177,8 +181,9 @@ void CheckResiduals2()
 	  y=nHitsTOB_CTF->at(TrackNo_CTF);
 	  for(int res=x; res<(x+y) ;res++)
 	    {
-	  h_ResTOBxPrime_CTF.Fill(ResTOBxPrime_CTF->at(res));
-	  h_ResTOByPrime_CTF.Fill(ResTOByPrime_CTF->at(res));
+	      h_ResTOBxPrime_CTF.Fill(ResTOBxPrime_CTF->at(res));
+	      h_ResTOByPrime_CTF.Fill(ResTOByPrime_CTF->at(res));
+	      residual++;
 	    }
 	  ResTOB=ResTOBxPrime_CTF->size();
 	}
@@ -193,11 +198,12 @@ void CheckResiduals2()
 	    {
 	      h_ResTECxPrime_CTF.Fill(ResTECxPrime_CTF->at(res));
 	      h_ResTECyPrime_CTF.Fill(ResTECyPrime_CTF->at(res));
+	      residual++;
 	    }
 	  ResTEC=ResTECxPrime_CTF->size();
 	}
       TotalRes=ResBPIX+ResFPIX+ResTIB+ResTOB+ResTID+ResTEC;
-      fprintf(CheckResiduals,"%i,%i,%i,%i,%i,%i,%i,%i,%i,%i,%i,%i,%i,%i,%i,%i,%i \n",jentry,HitsPIXEL,HitsBPIX,ResBPIX,HitsFPIX,ResFPIX,HitsTIB,ResTIB,HitsTOB,ResTOB,HitsTID,ResTID,HitsTEC,ResTEC,ValidHits,TotalHits,TotalRes);
+      fprintf(CheckResiduals,"%i,%i,%i,%i,%i,%i,%i,%i,%i,%i,%i,%i,%i,%i,%i,%i,%i,%i \n",jentry,HitsPIXEL,HitsBPIX,ResBPIX,HitsFPIX,ResFPIX,HitsTIB,ResTIB,HitsTOB,ResTOB,HitsTID,ResTID,HitsTEC,ResTEC,ValidHits,TotalHits,TotalRes,residual);
     }// Event Loop 
   
   c.SetGrid();   
