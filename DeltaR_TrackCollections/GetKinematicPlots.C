@@ -223,6 +223,7 @@ void GetKinematicPlots()
   c.SetFrameBorderMode(0);
   c.SetFrameLineWidth(3);
   c.SetFrameBorderMode(0);
+  
   TGaxis::SetMaxDigits(3);
 
   TLegend *leg = new TLegend(0.6494689,0.7324185,0.8952959,0.8696398,NULL,"brNDC");

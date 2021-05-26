@@ -1,4 +1,4 @@
-void GetResidualPlots()
+void GetNormalizedResidualPlots()
 {
   TFile *file1 = new TFile("CRAB_CTF_Residuals.root");
   TFile *file2 = new TFile("CRAB_CosmicTF_Residuals.root");
@@ -338,7 +338,7 @@ void GetResidualPlots()
   std::cout<<"Matched Events: "<<nMatchedEvents<<std::endl;
   fclose(DeltaRIndices);
 
-  gSystem->Exec("mkdir -p Residual_Plots");
+  gSystem->Exec("mkdir -p Normalized_Residual_Plots");
 
 
   //===============================================  PLOTTING  ==============================================//
@@ -414,16 +414,16 @@ void GetResidualPlots()
   h_ResBPIXxPrime_CTF.GetXaxis()->SetTitleSize(0.05); 
   h_ResBPIXxPrime_CTF.GetYaxis()->SetLabelSize(0.05);
   h_ResBPIXxPrime_CTF.GetYaxis()->SetTitleSize(0.05);
-  h_ResBPIXxPrime_CTF.Draw();
+  h_ResBPIXxPrime_CTF.DrawNormalized();
   h_ResBPIXxPrime_CosmicTF.SetLineColor(kRed);
   h_ResBPIXxPrime_CosmicTF.SetLineWidth(3);
-  h_ResBPIXxPrime_CosmicTF.Draw("same");
+  h_ResBPIXxPrime_CosmicTF.DrawNormalized("same");
   leg->Draw();
   Title.DrawLatexNDC(0.65, 0.94, "cosmic rays (2018)");
   c.SaveAs("ResBPIXxPrime.png");
   c.SaveAs("ResBPIXxPrime.C");
-  gSystem->Exec("mv ResBPIXxPrime.png Residual_Plots");
-  gSystem->Exec("mv ResBPIXxPrime.C Residual_Plots");
+  gSystem->Exec("mv ResBPIXxPrime.png Normalized_Residual_Plots");
+  gSystem->Exec("mv ResBPIXxPrime.C Normalized_Residual_Plots");
   c.Clear();
   //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx//
 
@@ -435,16 +435,16 @@ void GetResidualPlots()
   h_ResFPIXxPrime_CTF.GetXaxis()->SetTitleSize(0.05); 
   h_ResFPIXxPrime_CTF.GetYaxis()->SetLabelSize(0.05);
   h_ResFPIXxPrime_CTF.GetYaxis()->SetTitleSize(0.05);
-  h_ResFPIXxPrime_CTF.Draw();
+  h_ResFPIXxPrime_CTF.DrawNormalized();
   h_ResFPIXxPrime_CosmicTF.SetLineColor(kRed);
   h_ResFPIXxPrime_CosmicTF.SetLineWidth(3);
-  h_ResFPIXxPrime_CosmicTF.Draw("same");
+  h_ResFPIXxPrime_CosmicTF.DrawNormalized("same");
   leg->Draw();
   Title.DrawLatexNDC(0.65, 0.94, "cosmic rays (2018)");
   c.SaveAs("ResFPIXxPrime.png");
   c.SaveAs("ResFPIXxPrime.C");
-  gSystem->Exec("mv ResFPIXxPrime.png Residual_Plots");
-  gSystem->Exec("mv ResFPIXxPrime.C Residual_Plots");
+  gSystem->Exec("mv ResFPIXxPrime.png Normalized_Residual_Plots");
+  gSystem->Exec("mv ResFPIXxPrime.C Normalized_Residual_Plots");
   c.Clear();
   //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx//
   
@@ -456,16 +456,16 @@ void GetResidualPlots()
   h_ResTIBxPrime_CTF.GetXaxis()->SetTitleSize(0.05); 
   h_ResTIBxPrime_CTF.GetYaxis()->SetLabelSize(0.05);
   h_ResTIBxPrime_CTF.GetYaxis()->SetTitleSize(0.05);
-  h_ResTIBxPrime_CTF.Draw();
+  h_ResTIBxPrime_CTF.DrawNormalized();
   h_ResTIBxPrime_CosmicTF.SetLineColor(kRed);
   h_ResTIBxPrime_CosmicTF.SetLineWidth(3);
-  h_ResTIBxPrime_CosmicTF.Draw("same");
+  h_ResTIBxPrime_CosmicTF.DrawNormalized("same");
   leg->Draw();
   Title.DrawLatexNDC(0.65, 0.94, "cosmic rays (2018)");
   c.SaveAs("ResTIBxPrime.png");
   c.SaveAs("ResTIBxPrime.C");
-  gSystem->Exec("mv ResTIBxPrime.png Residual_Plots");
-  gSystem->Exec("mv ResTIBxPrime.C Residual_Plots");
+  gSystem->Exec("mv ResTIBxPrime.png Normalized_Residual_Plots");
+  gSystem->Exec("mv ResTIBxPrime.C Normalized_Residual_Plots");
   c.Clear();
   //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx//
 
@@ -477,16 +477,16 @@ void GetResidualPlots()
   h_ResTOBxPrime_CTF.GetXaxis()->SetTitleSize(0.05); 
   h_ResTOBxPrime_CTF.GetYaxis()->SetLabelSize(0.05);
   h_ResTOBxPrime_CTF.GetYaxis()->SetTitleSize(0.05);
-  h_ResTOBxPrime_CTF.Draw();
+  h_ResTOBxPrime_CTF.DrawNormalized();
   h_ResTOBxPrime_CosmicTF.SetLineColor(kRed);
   h_ResTOBxPrime_CosmicTF.SetLineWidth(3);
-  h_ResTOBxPrime_CosmicTF.Draw("same");
+  h_ResTOBxPrime_CosmicTF.DrawNormalized("same");
   leg->Draw();
   Title.DrawLatexNDC(0.65, 0.94, "cosmic rays (2018)");
   c.SaveAs("ResTOBxPrime.png");
   c.SaveAs("ResTOBxPrime.C");
-  gSystem->Exec("mv ResTOBxPrime.png Residual_Plots");
-  gSystem->Exec("mv ResTOBxPrime.C Residual_Plots");
+  gSystem->Exec("mv ResTOBxPrime.png Normalized_Residual_Plots");
+  gSystem->Exec("mv ResTOBxPrime.C Normalized_Residual_Plots");
   c.Clear();
   //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx//
   
@@ -498,16 +498,16 @@ void GetResidualPlots()
   h_ResTIDxPrime_CTF.GetXaxis()->SetTitleSize(0.05); 
   h_ResTIDxPrime_CTF.GetYaxis()->SetLabelSize(0.05);
   h_ResTIDxPrime_CTF.GetYaxis()->SetTitleSize(0.05);
-  h_ResTIDxPrime_CTF.Draw();
+  h_ResTIDxPrime_CTF.DrawNormalized();
   h_ResTIDxPrime_CosmicTF.SetLineColor(kRed);
   h_ResTIDxPrime_CosmicTF.SetLineWidth(3);
-  h_ResTIDxPrime_CosmicTF.Draw("same");
+  h_ResTIDxPrime_CosmicTF.DrawNormalized("same");
   leg->Draw();
   Title.DrawLatexNDC(0.65, 0.94, "cosmic rays (2018)");
   c.SaveAs("ResTIDxPrime.png");
   c.SaveAs("ResTIDxPrime.C");
-  gSystem->Exec("mv ResTIDxPrime.png Residual_Plots");
-  gSystem->Exec("mv ResTIDxPrime.C Residual_Plots");
+  gSystem->Exec("mv ResTIDxPrime.png Normalized_Residual_Plots");
+  gSystem->Exec("mv ResTIDxPrime.C Normalized_Residual_Plots");
   c.Clear();
   //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx//
   
@@ -519,16 +519,16 @@ void GetResidualPlots()
   h_ResTECxPrime_CTF.GetXaxis()->SetTitleSize(0.05); 
   h_ResTECxPrime_CTF.GetYaxis()->SetLabelSize(0.05);
   h_ResTECxPrime_CTF.GetYaxis()->SetTitleSize(0.05);
-  h_ResTECxPrime_CTF.Draw();
+  h_ResTECxPrime_CTF.DrawNormalized();
   h_ResTECxPrime_CosmicTF.SetLineColor(kRed);
   h_ResTECxPrime_CosmicTF.SetLineWidth(3);
-  h_ResTECxPrime_CosmicTF.Draw("same");
+  h_ResTECxPrime_CosmicTF.DrawNormalized("same");
   leg->Draw();
   Title.DrawLatexNDC(0.65, 0.94, "cosmic rays (2018)");
   c.SaveAs("ResTECxPrime.png");
   c.SaveAs("ResTECxPrime.C");
-  gSystem->Exec("mv ResTECxPrime.png Residual_Plots");
-  gSystem->Exec("mv ResTECxPrime.C Residual_Plots");
+  gSystem->Exec("mv ResTECxPrime.png Normalized_Residual_Plots");
+  gSystem->Exec("mv ResTECxPrime.C Normalized_Residual_Plots");
   c.Clear();
   //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx//
 
@@ -540,16 +540,16 @@ void GetResidualPlots()
   h_ResBPIXyPrime_CTF.GetXaxis()->SetTitleSize(0.05); 
   h_ResBPIXyPrime_CTF.GetYaxis()->SetLabelSize(0.05);
   h_ResBPIXyPrime_CTF.GetYaxis()->SetTitleSize(0.05);
-  h_ResBPIXyPrime_CTF.Draw();
+  h_ResBPIXyPrime_CTF.DrawNormalized();
   h_ResBPIXyPrime_CosmicTF.SetLineColor(kRed);
   h_ResBPIXyPrime_CosmicTF.SetLineWidth(3);
-  h_ResBPIXyPrime_CosmicTF.Draw("same");
+  h_ResBPIXyPrime_CosmicTF.DrawNormalized("same");
   leg->Draw();
   Title.DrawLatexNDC(0.65, 0.94, "cosmic rays (2018)");
   c.SaveAs("ResBPIXyPrime.png");
   c.SaveAs("ResBPIXyPrime.C");
-  gSystem->Exec("mv ResBPIXyPrime.png Residual_Plots");
-  gSystem->Exec("mv ResBPIXyPrime.C Residual_Plots");
+  gSystem->Exec("mv ResBPIXyPrime.png Normalized_Residual_Plots");
+  gSystem->Exec("mv ResBPIXyPrime.C Normalized_Residual_Plots");
   c.Clear();
   //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx//
 
@@ -561,16 +561,16 @@ void GetResidualPlots()
   h_ResFPIXyPrime_CTF.GetXaxis()->SetTitleSize(0.05); 
   h_ResFPIXyPrime_CTF.GetYaxis()->SetLabelSize(0.05);
   h_ResFPIXyPrime_CTF.GetYaxis()->SetTitleSize(0.05);
-  h_ResFPIXyPrime_CTF.Draw();
+  h_ResFPIXyPrime_CTF.DrawNormalized();
   h_ResFPIXyPrime_CosmicTF.SetLineColor(kRed);
   h_ResFPIXyPrime_CosmicTF.SetLineWidth(3);
-  h_ResFPIXyPrime_CosmicTF.Draw("same");
+  h_ResFPIXyPrime_CosmicTF.DrawNormalized("same");
   leg->Draw();
   Title.DrawLatexNDC(0.65, 0.94, "cosmic rays (2018)");
   c.SaveAs("ResFPIXyPrime.png");
   c.SaveAs("ResFPIXyPrime.C");
-  gSystem->Exec("mv ResFPIXyPrime.png Residual_Plots");
-  gSystem->Exec("mv ResFPIXyPrime.C Residual_Plots");
+  gSystem->Exec("mv ResFPIXyPrime.png Normalized_Residual_Plots");
+  gSystem->Exec("mv ResFPIXyPrime.C Normalized_Residual_Plots");
   c.Clear();
   //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx//
   
@@ -582,16 +582,16 @@ void GetResidualPlots()
   h_ResTIByPrime_CTF.GetXaxis()->SetTitleSize(0.05); 
   h_ResTIByPrime_CTF.GetYaxis()->SetLabelSize(0.05);
   h_ResTIByPrime_CTF.GetYaxis()->SetTitleSize(0.05);
-  h_ResTIByPrime_CTF.Draw();
-  h_ResTIByPrime_CosmicTF.Draw("same");
+  h_ResTIByPrime_CTF.DrawNormalized();
+  h_ResTIByPrime_CosmicTF.DrawNormalized("same");
   h_ResTIByPrime_CosmicTF.SetLineColor(kRed);
   h_ResTIByPrime_CosmicTF.SetLineWidth(3);
   leg->Draw();
   Title.DrawLatexNDC(0.65, 0.94, "cosmic rays (2018)");
   c.SaveAs("ResTIByPrime.png");
   c.SaveAs("ResTIByPrime.C");
-  gSystem->Exec("mv ResTIByPrime.png Residual_Plots");
-  gSystem->Exec("mv ResTIByPrime.C Residual_Plots");
+  gSystem->Exec("mv ResTIByPrime.png Normalized_Residual_Plots");
+  gSystem->Exec("mv ResTIByPrime.C Normalized_Residual_Plots");
   c.Clear();
   //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx//
 
@@ -603,16 +603,16 @@ void GetResidualPlots()
   h_ResTOByPrime_CTF.GetXaxis()->SetTitleSize(0.05); 
   h_ResTOByPrime_CTF.GetYaxis()->SetLabelSize(0.05);
   h_ResTOByPrime_CTF.GetYaxis()->SetTitleSize(0.05);
-  h_ResTOByPrime_CTF.Draw();
+  h_ResTOByPrime_CTF.DrawNormalized();
   h_ResTOByPrime_CosmicTF.SetLineColor(kRed);
   h_ResTOByPrime_CosmicTF.SetLineWidth(3);
-  h_ResTOByPrime_CosmicTF.Draw("same");
+  h_ResTOByPrime_CosmicTF.DrawNormalized("same");
   leg->Draw();
   Title.DrawLatexNDC(0.65, 0.94, "cosmic rays (2018)");
   c.SaveAs("ResTOByPrime.png");
   c.SaveAs("ResTOByPrime.C");
-  gSystem->Exec("mv ResTOByPrime.png Residual_Plots");
-  gSystem->Exec("mv ResTOByPrime.C Residual_Plots");
+  gSystem->Exec("mv ResTOByPrime.png Normalized_Residual_Plots");
+  gSystem->Exec("mv ResTOByPrime.C Normalized_Residual_Plots");
   c.Clear();
   //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx//
 
@@ -624,16 +624,16 @@ void GetResidualPlots()
   h_ResTIDyPrime_CTF.GetXaxis()->SetTitleSize(0.05); 
   h_ResTIDyPrime_CTF.GetYaxis()->SetLabelSize(0.05);
   h_ResTIDyPrime_CTF.GetYaxis()->SetTitleSize(0.05);
-  h_ResTIDyPrime_CTF.Draw();
+  h_ResTIDyPrime_CTF.DrawNormalized();
   h_ResTIDyPrime_CosmicTF.SetLineColor(kRed);
   h_ResTIDyPrime_CosmicTF.SetLineWidth(3);
-  h_ResTIDyPrime_CosmicTF.Draw("same");
+  h_ResTIDyPrime_CosmicTF.DrawNormalized("same");
   leg->Draw();
   Title.DrawLatexNDC(0.65, 0.94, "cosmic rays (2018)");
   c.SaveAs("ResTIDyPrime.png");
   c.SaveAs("ResTIDyPrime.C");
-  gSystem->Exec("mv ResTIDyPrime.png Residual_Plots");
-  gSystem->Exec("mv ResTIDyPrime.C Residual_Plots");
+  gSystem->Exec("mv ResTIDyPrime.png Normalized_Residual_Plots");
+  gSystem->Exec("mv ResTIDyPrime.C Normalized_Residual_Plots");
   c.Clear();
   //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx//
 
@@ -645,20 +645,20 @@ void GetResidualPlots()
   h_ResTECyPrime_CTF.GetXaxis()->SetTitleSize(0.05); 
   h_ResTECyPrime_CTF.GetYaxis()->SetLabelSize(0.05);
   h_ResTECyPrime_CTF.GetYaxis()->SetTitleSize(0.05);
-  h_ResTECyPrime_CTF.Draw();
+  h_ResTECyPrime_CTF.DrawNormalized();
   h_ResTECyPrime_CosmicTF.SetLineColor(kRed);
   h_ResTECyPrime_CosmicTF.SetLineWidth(3);
-  h_ResTECyPrime_CosmicTF.Draw("same");
+  h_ResTECyPrime_CosmicTF.DrawNormalized("same");
   leg->Draw();
   Title.DrawLatexNDC(0.65, 0.94, "cosmic rays (2018)");
   c.SaveAs("ResTECyPrime.png");
   c.SaveAs("ResTECyPrime.C");
-  gSystem->Exec("mv ResTECyPrime.png Residual_Plots");
-  gSystem->Exec("mv ResTECyPrime.C Residual_Plots");
+  gSystem->Exec("mv ResTECyPrime.png Normalized_Residual_Plots");
+  gSystem->Exec("mv ResTECyPrime.C Normalized_Residual_Plots");
   c.Clear();
   //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx//
 
-    // ================================ ZOOMED UP RESIDUALS ==================================== // 
+  // ================================ ZOOMED UP RESIDUALS ==================================== // 
 
   //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  BPIX x' Zoom xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx//
   c.SetGrid();
@@ -676,8 +676,8 @@ void GetResidualPlots()
   Title.DrawLatexNDC(0.65, 0.94, "cosmic rays (2018)");
   c.SaveAs("ResBPIXxPrime_Zoom.png");
   c.SaveAs("ResBPIXxPrime_Zoom.C");
-  gSystem->Exec("mv ResBPIXxPrime_Zoom.png Residual_Plots");
-  gSystem->Exec("mv ResBPIXxPrime_Zoom.C Residual_Plots");
+  gSystem->Exec("mv ResBPIXxPrime_Zoom.png Normalized_Residual_Plots");
+  gSystem->Exec("mv ResBPIXxPrime_Zoom.C Normalized_Residual_Plots");
   c.Clear();
   //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx//
 
@@ -697,8 +697,8 @@ void GetResidualPlots()
   Title.DrawLatexNDC(0.65, 0.94, "cosmic rays (2018)");
   c.SaveAs("ResFPIXxPrime_Zoom.png");
   c.SaveAs("ResFPIXxPrime_Zoom.C");
-  gSystem->Exec("mv ResFPIXxPrime_Zoom.png Residual_Plots");
-  gSystem->Exec("mv ResFPIXxPrime_Zoom.C Residual_Plots");
+  gSystem->Exec("mv ResFPIXxPrime_Zoom.png Normalized_Residual_Plots");
+  gSystem->Exec("mv ResFPIXxPrime_Zoom.C Normalized_Residual_Plots");
   c.Clear();
   //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx//
 
@@ -718,8 +718,8 @@ void GetResidualPlots()
   Title.DrawLatexNDC(0.65, 0.94, "cosmic rays (2018)");
   c.SaveAs("ResBPIXyPrime_Zoom.png");
   c.SaveAs("ResBPIXyPrime_Zoom.C");
-  gSystem->Exec("mv ResBPIXyPrime_Zoom.png Residual_Plots");
-  gSystem->Exec("mv ResBPIXyPrime_Zoom.C Residual_Plots");
+  gSystem->Exec("mv ResBPIXyPrime_Zoom.png Normalized_Residual_Plots");
+  gSystem->Exec("mv ResBPIXyPrime_Zoom.C Normalized_Residual_Plots");
   c.Clear();
   //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx//
 
@@ -739,8 +739,8 @@ void GetResidualPlots()
   Title.DrawLatexNDC(0.65, 0.94, "cosmic rays (2018)");
   c.SaveAs("ResFPIXyPrime_Zoom.png");
   c.SaveAs("ResFPIXyPrime_Zoom.C");
-  gSystem->Exec("mv ResFPIXyPrime_Zoom.png Residual_Plots");
-  gSystem->Exec("mv ResFPIXyPrime_Zoom.C Residual_Plots");
+  gSystem->Exec("mv ResFPIXyPrime_Zoom.png Normalized_Residual_Plots");
+  gSystem->Exec("mv ResFPIXyPrime_Zoom.C Normalized_Residual_Plots");
   c.Clear();
   //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx//
   
@@ -760,8 +760,8 @@ void GetResidualPlots()
   Title.DrawLatexNDC(0.65, 0.94, "cosmic rays (2018)");
   c.SaveAs("ResTIBxPrime_Zoom.png");
   c.SaveAs("ResTIBxPrime_Zoom.C");
-  gSystem->Exec("mv ResTIBxPrime_Zoom.png Residual_Plots");
-  gSystem->Exec("mv ResTIBxPrime_Zoom.C Residual_Plots");
+  gSystem->Exec("mv ResTIBxPrime_Zoom.png Normalized_Residual_Plots");
+  gSystem->Exec("mv ResTIBxPrime_Zoom.C Normalized_Residual_Plots");
   c.Clear();
   //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx//
 
@@ -781,11 +781,10 @@ void GetResidualPlots()
   Title.DrawLatexNDC(0.65, 0.94, "cosmic rays (2018)");
   c.SaveAs("ResTOBxPrime_Zoom.png");
   c.SaveAs("ResTOBxPrime_Zoom.C");
-  gSystem->Exec("mv ResTOBxPrime_Zoom.png Residual_Plots");
-  gSystem->Exec("mv ResTOBxPrime_Zoom.C Residual_Plots");
+  gSystem->Exec("mv ResTOBxPrime_Zoom.png Normalized_Residual_Plots");
+  gSystem->Exec("mv ResTOBxPrime_Zoom.C Normalized_Residual_Plots");
   c.Clear();
   //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx//
 
-  
 }
 
