@@ -1,0 +1,163 @@
+/*
+The following macro compares the normaized histograms in 2 different root files having similar heirarchy structures.
+Its based on the structure of hadd.C and will work on all the folders, subfolders in the root file no matter the hierarchy. 
+
+Running the script in ROOT:
+1) .L PLotter.C
+2) Compare_Histograms( "file1.root", "Legend1", "file2.root", "Legend2")
+
+This will create a folder "Plots" with png, pdf and C formats of the comparison Histograms where the legend is "Legend1" and "Legend2" for file.root and file2.root respectively.
+By default the x-axis limits are from the root files itself and the y-axis are normalized.
+
+*/
+
+void Recursion(TDirectory* , const char*, const char*, const char*, const char* ); 
+
+void Compare_Histograms(const char* fileName1, const char* Legend1, const char* fileName2, const char* Legend2)
+{
+  TString InputFile = Form("%s",fileName1);
+  TFile *file=new TFile(InputFile.Data());
+  TString target1=file->GetPath();
+  gSystem->Exec("mkdir Plots");
+  
+  file->GetListOfKeys()->Print();
+  Recursion(file, fileName1, Legend1, fileName2, Legend2);  
+}
+
+void Recursion(TDirectory* target, const char* filename1, const char* leg1, const char* filename2, const char* leg2)
+{
+  TFile *f1=TFile::Open( filename1, "r" );
+  TString path( (char*)strstr( target->GetPath(), ":" ) );
+  path.Remove( 0, 2 );
+  f1->cd(path);
+  TDirectory *temp= gDirectory;
+    
+  TIter next(temp->GetListOfKeys());
+  TKey *key;
+
+  TH1::SetDefaultSumw2(kTRUE);
+  Int_t colors[8]  = {kBlack,kBlue,kRed,kGreen+2,kOrange,kMagenta,kCyan,kViolet};
+  
+  //==========Setting Up Canvas==========//
+  TCanvas *c = new TCanvas("c", "c",754,169,800,756);
+  gStyle->SetOptStat(0); // Dont show stats
+  gStyle->SetOptTitle(0); // Dont show Title
+  c->SetFillColor(0);  
+  c->SetBorderSize(2);
+  c->SetTickx(1);
+  c->SetTicky(1);
+  c->SetLeftMargin(0.17);
+  c->SetRightMargin(0.04761905);
+  c->SetTopMargin(0.07152683);
+  c->SetBottomMargin(0.1224209);
+  c->SetFrameLineWidth(3);
+  c->SetFrameFillStyle(0);
+  c->SetFrameLineWidth(2);
+  c->SetFrameLineWidth(3);
+  
+  while ((key=(TKey*)next()))
+    {
+      TObject *obj = key->ReadObj();
+      // xxxxxxxxxxxxxxxxxxxx If the TObject is a TDirectory xxxxxxxxxxxxxxxxxxxxxxxxxxx //
+      if ( obj->IsA()->InheritsFrom( TDirectory::Class()))
+	{
+	  std::cout << "Found subdirectory " << obj->GetName() <<std::endl;
+	  TDirectory *subdir = (TDirectory*)obj;
+	  std::cout<<subdir->GetPath()<<std::endl;
+	  Recursion( subdir ,  filename1, leg1, filename2, leg2);
+	}
+      // xxxxxxxxxxxxxxxxxxxx If the TObject is a TH1 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx //
+      else if (obj->IsA()->InheritsFrom( TH1::Class() ))
+	{	  
+	  TH1F *h1 = (TH1F*)obj;
+	  TDirectory *HistDir = h1->GetDirectory();
+	  TString DirPath( (char*)strstr( HistDir->GetPath(), ":" ) );
+	  DirPath.Remove( 0, 2 );
+	  
+          TFile *file2=TFile::Open( filename2, "r" );
+	  TString HistName = key->GetName();
+	  TString cmd2 = DirPath+"/"+HistName;
+          TH1F *h2 = (TH1F*)file2->Get(cmd2.Data());		      
+
+	  TGaxis::SetMaxDigits(3); //Setting the digit limits of axis labels
+	  
+	  //=========Setting Up Legend==========//
+	  TLegend *leg = new TLegend(0.74,0.70,0.90,0.88);
+	  leg->SetHeader("Campaign","C");
+	  leg->SetBorderSize(1);
+	  leg->SetTextFont(62);
+	  leg->SetTextSize(0.04);
+	  leg->SetLineColor(0);
+	  leg->SetLineStyle(1);
+	  leg->SetLineWidth(1);
+	  leg->SetFillColor(0);
+	  leg->SetFillStyle(0);
+
+	  // =========== Histogram Details =========== //
+	  h1->GetXaxis()->SetLabelFont(42);
+	  h1->GetXaxis()->SetLabelSize(0.05);
+	  h1->GetXaxis()->SetTitleSize(0.05);
+	  h1->GetXaxis()->SetTickLength(0.05);
+	  h1->GetXaxis()->SetTitleFont(42);
+	  h1->GetYaxis()->SetTitle("a.u.");
+	  h1->GetYaxis()->SetLabelFont(42);
+	  h1->GetYaxis()->SetLabelSize(0.05);
+	  h1->GetYaxis()->SetTitleSize(0.06);
+	  h1->GetYaxis()->SetTickLength(0.05);
+	  h1->GetYaxis()->SetTitleFont(42);
+
+	  // ============ Plotting ============== // 
+	  h1->SetLineColor(colors[1]);
+	  h1->SetLineWidth(3);
+	  h1->DrawNormalized("EHIST");
+	  h2->SetLineColor(colors[2]);
+	  h2->SetLineWidth(3);
+	  h2->DrawNormalized("EHISTSame");	  
+
+	  //============== Legend Entries ================
+	  TLegendEntry *entry=leg->AddEntry(h1,leg2,"l");
+	  entry->SetFillStyle(1001);
+	  entry->SetLineColor(colors[1]);
+	  entry->SetLineStyle(1);
+	  entry->SetLineWidth(3);
+	  entry->SetMarkerColor(colors[1]);
+	  entry->SetMarkerStyle(1);
+	  entry->SetMarkerSize(1);
+	  entry->SetTextFont(42);
+	  leg->Draw();
+	  entry=leg->AddEntry(h2,leg1,"l");
+	  entry->SetFillStyle(1001);
+	  entry->SetLineColor(colors[2]);
+	  entry->SetLineStyle(1);
+	  entry->SetLineWidth(3);
+	  entry->SetMarkerColor(colors[2]);
+	  entry->SetMarkerStyle(1);
+	  entry->SetMarkerSize(1);
+	  entry->SetTextFont(42);
+	  leg->Draw();
+
+	  gPad->RedrawAxis();
+
+	  //============== Saving as PDF, png and C ================
+	  TString PlotFormat[] = {"2.png", ".pdf", "2.C"};
+	  for(int k=0; k<3; k++)
+	  {
+	    TString Format = HistName +  PlotFormat[k];
+	    c->SaveAs(Format.Data());
+	    TString cmd4 = "mv  " + Format + "  Plots/pdf";
+	    gSystem->Exec(cmd4.Data());
+	  }
+	  
+	  c->Clear();    
+	  h1->Clear();
+	  h2->Clear();	  
+	}	            
+      else // if the TObject is not of class TDirectory or TH1
+	{ std::cout<<"The class is not a TDirectory or TH1 !"<<std::endl;         
+	}
+      
+    } // while loop
+  
+} //Recursion Function
+
+

@@ -4,82 +4,75 @@ void VennCollection()
   // TString Allfiles[3] = {"Cosmic_rate_tuple1.root","Cosmic_rate_tuple2.root","Cosmic_rate_tuple3.root"};
 
  
-  TFile *file1 = new TFile("CTF_2018.root");
-  TFile *file2 = new TFile("CosmicTF_2018.root");
-  TFile *file3 = new TFile("Regional_2018.root");
+  TFile *file1 = new TFile("CTF_Diana_1_WithoutR.root");
+  TFile *file2 = new TFile("CosmicTF_Diana_1_WithoutR.root");
+  TFile *file3 = new TFile("Regional_Diana_1_WithoutR.root");
   
   TTree *tree1;
   TTree *tree2;
   TTree *tree3;
 
-  tree1 = (TTree*)file1->Get("cosmicRateAnalyzer/Event");
-  tree2 = (TTree*)file2->Get("cosmicRateAnalyzer/Event");
-  tree3 = (TTree*)file3->Get("cosmicRateAnalyzer/Event");  
+  tree1 = (TTree*)file1->Get("demo/Event");
+  tree2 = (TTree*)file2->Get("demo/Event");
+  tree3 = (TTree*)file3->Get("demo/Event");  
 
-  int ntrk1,ntrk2,ntrk3;
+  int ntrk_CTF, ntrk_CosmicTF, ntrk_Regional;
   int n1Only=0,n2Only=0,n3Only=0,n1Andn2=0,n2Andn3=0,n1Andn3=0,n1n2Andn3=0,nTotal=0,none=0;
-  
-  tree1->SetBranchAddress("ntrk", &ntrk1);
-  tree2->SetBranchAddress("ntrk", &ntrk2);
-  tree3->SetBranchAddress("ntrk", &ntrk3);
-
-  vector<double>  v_ntrk1;
-  vector<double>  v_ntrk2;
-  vector<double>  v_ntrk3;
+ 
+  tree1->SetBranchAddress("nTracks", &ntrk_CTF);
+  tree2->SetBranchAddress("nTracks", &ntrk_CosmicTF);
+  tree3->SetBranchAddress("nTracks", &ntrk_Regional);
   
   //------------------------------------------------1st Vector v_ntrck1----------------------------------------------    
   Long64_t n1 = tree1->GetEntriesFast();
+  Long64_t n2 = tree2->GetEntriesFast();
+  Long64_t n3 = tree3->GetEntriesFast();
   for (Long64_t jentry=0; jentry<n1; jentry++) 
     {
       tree1->GetEntry(jentry); 
-      v_ntrk1.push_back(ntrk1);
       tree2->GetEntry(jentry); 
-      v_ntrk2.push_back(ntrk2);
-      tree3->GetEntry(jentry); 
-      v_ntrk3.push_back(ntrk3);
-    }
-  
-  std::cout<<v_ntrk1.size()<<endl;
-  std::cout<<v_ntrk2.size()<<endl;
-  std::cout<<v_ntrk3.size()<<endl;
-  
-  for (Long64_t jentry=0; jentry<n1; jentry++) 
-    {
-      if(v_ntrk1.at(jentry)>0 && v_ntrk2.at(jentry)==0 && v_ntrk3.at(jentry)==0  )
+      tree3->GetEntry(jentry);
+
+      if( ntrk_CTF>0 &&  ntrk_CosmicTF==0 &&  ntrk_Regional==0 )
 	{
 	  n1Only++;
 	}
-      if(v_ntrk1.at(jentry)==0 && v_ntrk2.at(jentry)>0 && v_ntrk3.at(jentry)==0  )
+      if( ntrk_CTF==0 &&  ntrk_CosmicTF>0 &&  ntrk_Regional==0 )
 	{
 	  n2Only++;
 	}
-      if(v_ntrk1.at(jentry)==0 && v_ntrk2.at(jentry)==0 && v_ntrk3.at(jentry)>0  )
+      if( ntrk_CTF==0 &&  ntrk_CosmicTF==0 &&  ntrk_Regional>0 )
 	{
-	  n2Only++;
+	  n3Only++;
 	}
-      if(v_ntrk1.at(jentry)>0 && v_ntrk2.at(jentry)>0 && v_ntrk3.at(jentry)==0  )
+      if( ntrk_CTF>0 &&  ntrk_CosmicTF>0 &&  ntrk_Regional==0 )
 	{
 	  n1Andn2++;
 	}
-      if(v_ntrk1.at(jentry)>0 && v_ntrk2.at(jentry)==0 && v_ntrk3.at(jentry)>0  )
+      if( ntrk_CTF>0 &&  ntrk_CosmicTF==0 &&  ntrk_Regional>0 )
 	{
 	  n1Andn3++;
 	}
-      if(v_ntrk1.at(jentry)==0 && v_ntrk2.at(jentry)>0 && v_ntrk3.at(jentry)>0  )
+      if( ntrk_CTF==0 &&  ntrk_CosmicTF>0 &&  ntrk_Regional>0 )
 	{
 	  n2Andn3++;
 	}
-       if(v_ntrk1.at(jentry)>0 && v_ntrk2.at(jentry)>0 && v_ntrk3.at(jentry)>0  )
+       if( ntrk_CTF>0 &&  ntrk_CosmicTF>0 &&  ntrk_Regional>0 )
 	{
 	  n1n2Andn3++;
 	}
-        if(v_ntrk1.at(jentry)==0 && v_ntrk2.at(jentry)==0 && v_ntrk3.at(jentry)==0  )
+        if( ntrk_CTF==0 &&  ntrk_CosmicTF==0 &&  ntrk_Regional==0 )
 	{
 	  none++;
 	}
-       nTotal++;     
+       nTotal++;
+      
     }
-
+  
+  std::cout<<"Events CTF: "<<n1<<std::endl;
+  std::cout<<"Events CosmicTF: "<<n2<<std::endl;
+  std::cout<<"Events Regional: "<<n3<<std::endl;
+  
   std::cout<<"Total Events"<<nTotal<<endl;
   std::cout<<"Events with tracks from CTF Only: "<<n1Only<<endl;
   std::cout<<"Events with tracks from CosmicTF Only: "<<n2Only<<endl;
